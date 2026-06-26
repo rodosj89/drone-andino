@@ -189,9 +189,8 @@
 <body>
 
     <div class="container">
-        <!-- Logo de la empresa (cambia 'logo.png' por tu imagen) -->
         <div class="company-header">
-            <img src="logo.png" alt="Logo de la empresa" id="companyLogo" onerror="this.style.display='none'">
+            <img src="logo.jpeg" alt="Logo de la empresa" id="companyLogo" onerror="this.style.display='none'">
             <div class="header-text">
                 <h1>🧾 Carga de Pago</h1>
                 <div class="subtitle">Completa los datos para que el equipo de pagos procese la operación.</div>
@@ -231,14 +230,10 @@
         <div id="message" class="message"></div>
         <div id="deviceInfo" class="info-device"></div>
     </div>
-
+    <script src="config.js"></script>
     <script>
         (function() {
-            const EMAILJS_PUBLIC_KEY = 'srL6JaEOZQ3iewB4c';
-            const EMAILJS_SERVICE_ID = 'service_vavbs4r';
-            const EMAILJS_TEMPLATE_ID = 'template_e2np2fg';
-
-            emailjs.init(EMAILJS_PUBLIC_KEY);
+            emailjs.init(CONFIG.EMAILJS_PUBLIC_KEY);
 
             const form = document.getElementById('paymentForm');
             const submitBtn = document.getElementById('submitBtn');
@@ -427,8 +422,8 @@
 
                 try {
                     const response = await emailjs.send(
-                        EMAILJS_SERVICE_ID,
-                        EMAILJS_TEMPLATE_ID,
+                        CONFIG.EMAILJS_SERVICE_ID,
+                        CONFIG.EMAILJS_TEMPLATE_ID,
                         templateParams
                     );
                     console.log('Correo enviado exitosamente:', response);
