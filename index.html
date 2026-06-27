@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drone Andino · Filmación con Drones</title>
+
+    <!-- ===== FAVICON ===== -->
+    <!-- Coloca tu archivo logo.ico en la carpeta raíz de tu sitio -->
+    <link rel="icon" href="logo.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
+
+    <!-- Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* ----- RESET Y BASE ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ----- HEADER / NAV ----- */
+        header {
+            background: #16120D;
+            padding: 18px 0;
+            border-bottom: 3px solid #F98F11;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(249, 143, 17, 0.15);
+        }
+
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: #F98F11;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #ffffff;
+        }
+
+        .logo-text span {
+            color: #FDE120;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-links a:hover {
+            color: #FDE120;
+        }
+
+        .btn-outline-dark {
+            border: 1.5px solid #F98F11;
+            padding: 6px 20px;
+            border-radius: 30px;
+            transition: all 0.2s;
+            color: #ffffff !important;
+        }
+
+        .btn-outline-dark:hover {
+            background: #F98F11;
+            color: #000000 !important;
+            border-color: #F98F11;
+        }
+
+        /* ----- HERO ----- */
+        .hero {
+            background: #000000;
+            padding: 80px 0 70px;
+            border-bottom: 4px solid #603319;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(249, 143, 17, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 44px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 i {
+            color: #F98F11;
+            margin-right: 10px;
+        }
+
+        .hero h1 .highlight {
+            color: #FDE120;
+            text-shadow: 0 0 30px rgba(253, 225, 32, 0.2);
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: 0.85;
+            margin-bottom: 30px;
+            max-width: 500px;
+            color: #cccccc;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .btn-primary {
+            background: #F98F11;
+            color: #000000;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.25s;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(249, 143, 17, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #FDE120;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(253, 225, 32, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid #603319;
+            transition: all 0.25s;
+        }
+
+        .btn-secondary:hover {
+            border-color: #F98F11;
+            background: rgba(249, 143, 17, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .hero-stats div {
+            text-align: center;
+        }
+
+        .hero-stats .number {
+            font-size: 32px;
+            font-weight: 800;
+            color: #FDE120;
+            display: block;
+            text-shadow: 0 0 20px rgba(253, 225, 32, 0.15);
+        }
+
+        .hero-stats .label {
+            font-size: 14px;
+            opacity: 0.7;
+            color: #aaaaaa;
+        }
+
+        .hero-image-placeholder {
+            background: rgba(22, 18, 13, 0.6);
+            border-radius: 20px;
+            padding: 40px 20px;
+            text-align: center;
+            border: 1px solid #603319;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 0 40px rgba(249, 143, 17, 0.05);
+        }
+
+        .hero-image-placeholder i {
+            font-size: 72px;
+            color: #F98F11;
+            opacity: 0.8;
+        }
+
+        .hero-image-placeholder p {
+            margin-top: 16px;
+            font-size: 14px;
+            opacity: 0.6;
+            color: #aaaaaa;
+        }
+
+        .badge-group {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .badge-group span {
+            background: rgba(249, 143, 17, 0.12);
+            border: 1px solid #603319;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            color: #FDE120;
+        }
+
+        /* ----- SERVICIOS ----- */
+        .section {
+            padding: 70px 0;
+        }
+
+        .section-dark {
+            background: #000000;
+        }
+
+        .section-dark-alt {
+            background: #0a0806;
+        }
+
+        .section-title {
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .section-title span {
+            color: #FDE120;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #aaaaaa;
+            max-width: 600px;
+            margin: 0 auto 48px;
+            font-size: 17px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: #16120D;
+            border-radius: 20px;
+            padding: 32px 24px;
+            transition: all 0.3s;
+            border: 1px solid #603319;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: #F98F11;
+            box-shadow: 0 12px 40px rgba(249, 143, 17, 0.08);
+        }
+
+        .service-card i {
+            font-size: 40px;
+            color: #FDE120;
+            background: rgba(249, 143, 17, 0.1);
+            padding: 16px;
+            border-radius: 60px;
+            margin-bottom: 18px;
+            border: 1px solid #603319;
+        }
+
+        .service-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .service-card p {
+            color: #aaaaaa;
+            font-size: 15px;
+        }
+
+        /* ----- PORTAFOLIO ----- */
+        .portfolio-showcase {
+            background: #0a0806;
+            border-top: 1px solid #603319;
+            border-bottom: 1px solid #603319;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .video-item {
+            background: #16120D;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid #603319;
+        }
+
+        .video-item:hover {
+            transform: translateY(-4px);
+            border-color: #F98F11;
+            box-shadow: 0 8px 30px rgba(249, 143, 17, 0.06);
+        }
+
+        .video-thumb {
+            background: #0a0806;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #603319;
+            font-size: 14px;
+            position: relative;
+            border-bottom: 1px solid #603319;
+        }
+
+        .video-thumb i {
+            font-size: 48px;
+            color: #F98F11;
+            opacity: 0.5;
+            transition: all 0.3s;
+        }
+
+        .video-item:hover .video-thumb i {
+            opacity: 1;
+            color: #FDE120;
+            transform: scale(1.05);
+        }
+
+        .video-info {
+            padding: 16px 20px 20px;
+        }
+
+        .video-info h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+
+        .video-info p {
+            color: #888888;
+            font-size: 13px;
+        }
+
+        /* ----- TESTIMONIOS ----- */
+        .testimonials {
+            background: #000000;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            background: #16120D;
+            padding: 24px;
+            border-radius: 16px;
+            border-left: 4px solid #F98F11;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: #dddddd;
+            margin-bottom: 12px;
+        }
+
+        .testimonial-card .author {
+            font-weight: 600;
+            color: #FDE120;
+        }
+
+        .testimonial-card .role {
+            font-size: 13px;
+            color: #888888;
+        }
+
+        /* ----- CTA FINAL ----- */
+        .cta-section {
+            background: #16120D;
+            text-align: center;
+            padding: 70px 20px;
+            border-top: 3px solid #603319;
+            border-bottom: 3px solid #603319;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+
+        .cta-section h2 span {
+            color: #FDE120;
+        }
+
+        .cta-section p {
+            max-width: 500px;
+            margin: 0 auto 30px;
+            opacity: 0.8;
+            color: #aaaaaa;
+        }
+
+        .cta-section .btn-primary {
+            background: #FDE120;
+            color: #000000;
+        }
+
+        .cta-section .btn-primary:hover {
+            background: #F98F11;
+            box-shadow: 0 8px 30px rgba(249, 143, 17, 0.4);
+        }
+
+        .social-links-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .social-links-cta a {
+            color: #ffffff;
+            font-size: 18px;
+            background: rgba(249, 143, 17, 0.1);
+            padding: 10px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #603319;
+            transition: all 0.25s;
+        }
+
+        .social-links-cta a:hover {
+            background: #F98F11;
+            color: #000000;
+            border-color: #F98F11;
+            transform: translateY(-3px);
+        }
+
+        /* ----- FOOTER ----- */
+        footer {
+            background: #0a0806;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 0 24px;
+            border-top: 2px solid #603319;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand .logo-text {
+            font-size: 20px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            max-width: 280px;
+            color: #888888;
+        }
+
+        .footer-col h4 {
+            color: #FDE120;
+            font-size: 16px;
+            margin-bottom: 14px;
+        }
+
+        .footer-col a {
+            display: block;
+            color: #888888;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 8px;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: #F98F11;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .footer-social a {
+            background: rgba(249, 143, 17, 0.08);
+            width: 40px;
+            height: 40px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 18px;
+            transition: all 0.25s;
+            text-decoration: none;
+            border: 1px solid #603319;
+        }
+
+        .footer-social a:hover {
+            background: #F98F11;
+            color: #000000;
+            transform: translateY(-3px);
+            border-color: #F98F11;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 24px;
+            text-align: center;
+            font-size: 13px;
+            color: #666666;
+        }
+
+        .footer-bottom i {
+            color: #F98F11;
+        }
+
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .hero-stats {
+                justify-content: center;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header-flex {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+            .hero h1 {
+                font-size: 30px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .section {
+                padding: 50px 0;
+            }
+            .hero-image-placeholder i {
+                font-size: 48px;
+            }
+        }
+
+        /* ----- ESTILOS PARA LOS VIDEOS DE YOUTUBE ----- */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+            height: 0;
+            overflow: hidden;
+            background: #000000;
+            border-bottom: 1px solid #603319;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-item {
+            background: #16120D;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid #603319;
+        }
+
+        .video-item:hover {
+            transform: translateY(-4px);
+            border-color: #F98F11;
+            box-shadow: 0 8px 30px rgba(249, 143, 17, 0.06);
+        }
+
+        .video-info {
+            padding: 16px 20px 20px;
+        }
+
+        .video-info h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+
+        .video-info p {
+            color: #888888;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="container header-flex">
+            <div class="logo-area">
+                <i class="fas fa-drone logo-icon"></i>
+                <div class="logo-text">Drone<span>Andino</span></div>
+            </div>
+            <nav class="nav-links">
+                <a href="#servicios">Servicios</a>
+                <a href="#portafolio">Portafolio</a>
+                <a href="#contacto">Contacto</a>
+                <a href="pagos-proveedores.html" class="btn-outline-dark">
+                    <i class="fas fa-arrow-right"></i> Área de Pagos
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div>
+                <h1><i class="fas fa-drone"></i>Filmación Aérea <br><span class="highlight">con Propósito</span></h1>
+                <p>Capturamos la esencia de tus proyectos desde el aire. Producción de video profesional con drones para cine, publicidad, eventos y más.</p>
+                <div class="hero-buttons">
+                    <a href="#contacto" class="btn-primary">
+                        <i class="fas fa-paper-plane"></i> Solicitar presupuesto
+                    </a>
+                    <a href="#portafolio" class="btn-secondary">
+                        <i class="fas fa-play"></i> Ver portafolio
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div>
+                        <span class="number">+58</span>
+                        <span class="label">Clientes</span>
+                    </div>
+                    <div>
+                        <span class="number">+9</span>
+                        <span class="label">Proyectos</span>
+                    </div>
+                    <div>
+                        <span class="number">4K</span>
+                        <span class="label">Calidad</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image-placeholder">
+                <i class="fas fa-drone"></i>
+                <p>Visualiza tus proyectos desde una nueva perspectiva</p>
+                <div class="badge-group">
+                    <span>📸 4K HDR</span>
+                    <span>🎬 Estabilización</span>
+                    <span>⚡ Alta velocidad</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICIOS ===== -->
+    <section class="section section-dark" id="servicios">
+        <div class="container">
+            <h2 class="section-title">Nuestros <span>Servicios</span></h2>
+            <p class="section-subtitle">Soluciones audiovisuales integrales con tecnología de punta y un equipo creativo apasionado.</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-video"></i>
+                    <h3>Filmación con Drones</h3>
+                    <p>Imágenes aéreas de alta resolución para cine, publicidad, eventos deportivos y cobertura periodística.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-film"></i>
+                    <h3>Producción de Contenido</h3>
+                    <p>Desde la preproducción hasta la postproducción. Contamos historias visuales que conectan con tu audiencia.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-360-degrees"></i>
+                    <h3>Fotogrametría y Mapeo</h3>
+                    <p>Levantamientos topográficos, modelado 3D e inspecciones técnicas con precisión milimétrica.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-pen-fancy"></i>
+                    <h3>Edición y Postproducción</h3>
+                    <p>Montaje profesional, corrección de color, efectos visuales y sonido envolvente para un resultado impactante.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PORTAFOLIO ===== -->
+    <section class="section portfolio-showcase" id="portafolio">
+        <div class="container">
+            <h2 class="section-title">Trabajos <span>Destacados</span></h2>
+            <p class="section-subtitle">Algunos de nuestros proyectos recientes. Cada uno cuenta una historia diferente.</p>
+            <div class="video-grid">
+                <!-- Video 1: Salta - Argentina -->
+                <div class="video-item">
+                    <div class="video-wrapper">
+                        <iframe
+                            src="https://www.youtube.com/embed/_0h50tJV3G4"
+                            title="Salta - Argentina"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h4>Salta - Argentina</h4>
+                        <p>Vista aérea de los paisajes de Salta</p>
+                    </div>
+                </div>
+
+                <!-- Video 2: Serranías del Hornocal - Jujuy -->
+                <div class="video-item">
+                    <div class="video-wrapper">
+                        <iframe
+                            src="https://www.youtube.com/embed/ROhBlWiZU3A"
+                            title="Serranías del Hornocal - Jujuy - Argentina"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h4>Serranías del Hornocal</h4>
+                        <p>Jujuy - Argentina</p>
+                    </div>
+                </div>
+
+                <!-- Video 3: Catamarca - Argentina -->
+                <div class="video-item">
+                    <div class="video-wrapper">
+                        <iframe
+                            src="https://www.youtube.com/embed/68q-CM2Kx4s?t=159"
+                            title="Catamarca - Argentina"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h4>Catamarca - Argentina</h4>
+                        <p>Explorando sus paisajes desde el aire</p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="https://www.youtube.com/channel/UCT0gL7VE6x8AtdxTVbuy90Q" target="_blank" class="btn-primary" style="background:#16120D; color:#ffffff; border:1px solid #603319;">
+                    <i class="fab fa-youtube"></i> Ver más en YouTube
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIOS ===== -->
+    <section class="section testimonials" id="testimonios">
+        <div class="container">
+            <h2 class="section-title">Lo que dicen nuestros <span>clientes</span></h2>
+            <p class="section-subtitle">La confianza de quienes han volado con nosotros.</p>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>“La calidad de las tomas aéreas superó nuestras expectativas. Profesionales y creativos.”</p>
+                    <div class="author">María G.</div>
+                    <div class="role">Directora de producción</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>“Rápidos, eficientes y con un ojo increíble para la composición. Los recomiendo ampliamente.”</p>
+                    <div class="author">Carlos R.</div>
+                    <div class="role">Productor audiovisual</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>“El equipo de Drone Andino entendió perfectamente nuestra visión y la llevó al siguiente nivel.”</p>
+                    <div class="author">Laura M.</div>
+                    <div class="role">Marketing & Comunicación</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACTO / CTA ===== -->
+    <section class="cta-section" id="contacto">
+        <div class="container">
+            <h2>¿Listo para <span>despegar</span>?</h2>
+            <p>Cuéntanos tu proyecto y te asesoraremos sin compromiso. Desde la idea hasta la pantalla.</p>
+            <a href="https://wa.me/5492645596116?text=Hola%20Drone%20Andino,%20me%20interesa%20sus%20servicios" target="_blank" class="btn-primary">
+                <i class="fab fa-whatsapp"></i> Contáctanos ahora
+            </a>
+            <div class="social-links-cta">
+                <a href="https://www.instagram.com/droneandino?igsh=MXBjbDl4eXp1NTd3OQ==" target="_blank">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://www.youtube.com/channel/UCT0gL7VE6x8AtdxTVbuy90Q" target="_blank">
+                    <i class="fab fa-youtube"></i> YouTube
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="logo-text">Drone<span style="color:#FDE120;">Andino</span></span>
+                    <p>Filmación aérea y producción de contenido con drones. Calidad y creatividad desde los Andes para el mundo.</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/droneandino?igsh=MXBjbDl4eXp1NTd3OQ==" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/channel/UCT0gL7VE6x8AtdxTVbuy90Q" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="Vimeo"><i class="fab fa-vimeo-v"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Servicios</h4>
+                    <a href="#">Filmación aérea</a>
+                    <a href="#">Producción de video</a>
+                    <a href="#">Fotogrametría</a>
+                    <a href="#">Edición profesional</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Compañía</h4>
+                    <a href="#">Sobre nosotros</a>
+                    <a href="#">Portafolio</a>
+                    <a href="#">Testimonios</a>
+                    <a href="pagos-proveedores.html">Pagos a proveedores</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <a href="#"><i class="fas fa-envelope"></i> info@droneandino.com</a>
+                    <a href="#"><i class="fas fa-phone"></i> +57 300 123 4567</a>
+                    <a href="#"><i class="fas fa-map-marker-alt"></i> Medellín, Colombia</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Drone Andino. Todos los derechos reservados. | Hecho con <i class="fas fa-heart"></i> desde los Andes.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
