@@ -37,11 +37,11 @@
         /* ----- HEADER / NAV ----- */
         header {
             background: #16120D;
-            padding: 18px 0;
+            padding: 12px 0;
             border-bottom: 3px solid #F98F11;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
             box-shadow: 0 4px 20px rgba(249, 143, 17, 0.15);
         }
 
@@ -53,37 +53,81 @@
             gap: 16px;
         }
 
+        /* ----- LOGO ----- */
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 12px;
         }
 
-        .logo-icon {
-            font-size: 28px;
-            color: #F98F11;
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid #F98F11;
+            transition: all 0.3s ease;
+        }
+
+        .logo-link:hover .logo-img {
+            border-color: #FDE120;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(249, 143, 17, 0.3);
         }
 
         .logo-text {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            letter-spacing: -0.5px;
             color: #ffffff;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
         }
 
         .logo-text span {
             color: #FDE120;
         }
 
+        /* ----- MENÚ HAMBURGUESA (Móvil) ----- */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 2px solid #F98F11;
+            color: #ffffff;
+            font-size: 24px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background: #F98F11;
+            color: #000000;
+        }
+
+        .menu-toggle.active {
+            border-color: #FDE120;
+            background: #FDE120;
+            color: #000000;
+        }
+
+        /* ----- NAVEGACIÓN ----- */
         .nav-links {
             display: flex;
             gap: 28px;
             align-items: center;
             flex-wrap: wrap;
+            transition: all 0.3s ease;
         }
 
         .nav-links a {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.85);
             text-decoration: none;
             font-weight: 500;
             font-size: 15px;
@@ -91,24 +135,95 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
         }
 
         .nav-links a:hover {
             color: #FDE120;
+            border-bottom-color: #F98F11;
         }
 
         .btn-outline-dark {
-            border: 1.5px solid #F98F11;
-            padding: 6px 20px;
-            border-radius: 30px;
+            border: 1.5px solid #F98F11 !important;
+            padding: 6px 20px !important;
+            border-radius: 30px !important;
+            border-bottom: none !important;
             transition: all 0.2s;
             color: #ffffff !important;
         }
 
         .btn-outline-dark:hover {
-            background: #F98F11;
+            background: #F98F11 !important;
             color: #000000 !important;
-            border-color: #F98F11;
+            border-color: #F98F11 !important;
+            border-bottom: none !important;
+        }
+
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 16px 0;
+                border-top: 1px solid #603319;
+                margin-top: 12px;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 12px 16px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                justify-content: center;
+                font-size: 16px;
+            }
+
+            .nav-links a:hover {
+                border-bottom-color: #F98F11;
+            }
+
+            .btn-outline-dark {
+                justify-content: center !important;
+                margin-top: 8px;
+                border: 1.5px solid #F98F11 !important;
+                border-radius: 30px !important;
+                padding: 10px 20px !important;
+            }
+
+            .logo-img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logo-text {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .logo-img {
+                width: 32px;
+                height: 32px;
+            }
+
+            .logo-text {
+                font-size: 16px;
+            }
+
+            .menu-toggle {
+                font-size: 20px;
+                padding: 6px 12px;
+            }
         }
 
         /* ----- HERO ----- */
@@ -703,20 +818,26 @@
 </head>
 <body>
 
-    <!-- ===== HEADER ===== -->
+    <!-- ===== HEADER MEJORADO ===== -->
     <header>
         <div class="container header-flex">
+            <!-- Logo -->
             <div class="logo-area">
-                <i class="fas fa-drone logo-icon"></i>
-                <div class="logo-text">Drone<span>Andino</span></div>
+                <a href="#" class="logo-link">
+                    <img src="logo.jpeg" alt="Drone Andino" class="logo-img">
+                </a>
             </div>
-            <nav class="nav-links">
+
+            <!-- Botón hamburguesa (visible en móvil) -->
+            <button class="menu-toggle" id="menuToggle" aria-label="Menú">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Navegación -->
+            <nav class="nav-links" id="navLinks">
                 <a href="#servicios">Servicios</a>
                 <a href="#portafolio">Portafolio</a>
                 <a href="#contacto">Contacto</a>
-                <a href="pagos-proveedores.html" class="btn-outline-dark">
-                    <i class="fas fa-arrow-right"></i> Área de Pagos
-                </a>
             </nav>
         </div>
     </header>
