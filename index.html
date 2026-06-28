@@ -94,16 +94,22 @@
         }
 
         /* ----- MENÚ HAMBURGUESA (Móvil) ----- */
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: 2px solid #F98F11;
+       .menu-toggle {
+            display: none; /* Se oculta en escritorio, se muestra en móvil */
+            background: transparent;
+            border: 2px solid #F98F11; /* Borde naranja */
+            border-radius: 8px;        /* <-- Bordes redondeados (cuadrado suave) */
             color: #ffffff;
-            font-size: 24px;
-            padding: 8px 14px;
-            border-radius: 8px;
+            font-size: 22px;
+            padding: 8px 12px;         /* Ajusta el padding para que sea cuadrado */
+            width: 44px;               /* Ancho fijo para que sea cuadrado */
+            height: 44px;              /* Alto fijo, igual al ancho */
+            display: flex;             /* Para centrar el ícono */
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            line-height: 1;            /* Evita desbordes */
         }
 
         .menu-toggle:hover {
@@ -163,7 +169,7 @@
         /* ----- RESPONSIVE ----- */
         @media (max-width: 768px) {
             .menu-toggle {
-                display: block;
+                display: flex
             }
 
             .nav-links {
@@ -745,9 +751,11 @@
 
         @media (max-width: 600px) {
             .header-flex {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
+                display: flex;
+                justify-content: space-between; /* Logo a la izquierda, botón a la derecha */
+                align-items: center;           /* Centra verticalmente */
+                flex-wrap: nowrap;             /* Evita que los elementos se envuelvan a la siguiente línea */
+                gap: 16px;
             }
             .nav-links {
                 justify-content: center;
@@ -1059,5 +1067,39 @@
         </div>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+
+            if (menuToggle && navLinks) {
+                // Abrir/cerrar menú al hacer clic en el botón
+                menuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('open');
+                    this.classList.toggle('active');
+                    
+                    // Cambiar ícono entre barras y "X"
+                    const icon = this.querySelector('i');
+                    if (navLinks.classList.contains('open')) {
+                        icon.className = 'fas fa-times';
+                    } else {
+                        icon.className = 'fas fa-bars';
+                    }
+                });
+
+                // Cerrar el menú automáticamente al hacer clic en un enlace
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        navLinks.classList.remove('open');
+                        menuToggle.classList.remove('active');
+                        const icon = menuToggle.querySelector('i');
+                        if (icon) {
+                            icon.className = 'fas fa-bars';
+                        }
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>
