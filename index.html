@@ -95,21 +95,20 @@
 
         /* ----- MENÚ HAMBURGUESA (Móvil) ----- */
        .menu-toggle {
-            display: none; /* Se oculta en escritorio, se muestra en móvil */
+            display: none; /* <-- Esta es la regla correcta para escritorio */
             background: transparent;
-            border: 2px solid #F98F11; /* Borde naranja */
-            border-radius: 8px;        /* <-- Bordes redondeados (cuadrado suave) */
+            border: 2px solid #F98F11;
+            border-radius: 8px;
             color: #ffffff;
             font-size: 22px;
-            padding: 8px 12px;         /* Ajusta el padding para que sea cuadrado */
-            width: 44px;               /* Ancho fijo para que sea cuadrado */
-            height: 44px;              /* Alto fijo, igual al ancho */
-            display: flex;             /* Para centrar el ícono */
+            padding: 8px 12px;
+            width: 44px;
+            height: 44px;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            line-height: 1;            /* Evita desbordes */
+            line-height: 1;
         }
 
         .menu-toggle:hover {
@@ -168,8 +167,16 @@
 
         /* ----- RESPONSIVE ----- */
         @media (max-width: 768px) {
+            .logo-img {
+                width: 44px; /* <-- Cambiado de 40px o 48px para igualar al botón */
+                height: 44px; /* <-- Igual al ancho para mantener la proporción */
+            }
+
             .menu-toggle {
-                display: flex
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+                display: flex;
             }
 
             .nav-links {
@@ -218,17 +225,18 @@
 
         @media (max-width: 400px) {
             .logo-img {
-                width: 32px;
-                height: 32px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .menu-toggle {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
             }
 
             .logo-text {
                 font-size: 16px;
-            }
-
-            .menu-toggle {
-                font-size: 20px;
-                padding: 6px 12px;
             }
         }
 
@@ -830,7 +838,6 @@
             min-height: 320px; /* Altura mínima para que se vea bien */
         }
 
-        /* Contenedor del video */
         .video-background {
             position: absolute;
             top: 0;
@@ -838,9 +845,10 @@
             width: 100%;
             height: 100%;
             z-index: 0;
+            overflow: hidden;
         }
 
-        /* Estilos para el video */
+        /* Estilos base para el video */
         .video-background video {
             position: absolute;
             top: 50%;
@@ -849,9 +857,28 @@
             min-height: 100%;
             width: auto;
             height: auto;
-            transform: translate(-30%, -50%); /* Cambia de -50% a -30% para mover a la izquierda */
+            transform: translate(-50%, -50%);
             object-fit: cover;
-            object-position: left center; /* Alinea el contenido del video a la izquierda */
+            transition: all 0.3s ease;
+        }
+
+        /* ----- CLASE CENTER (Por defecto) ----- */
+        .video-background.center video {
+            /* Ya está centrado por defecto */
+            transform: translate(-50%, -50%);
+            object-position: center center;
+        }
+
+        /* ----- CLASE LEFT (Alineado a la izquierda) ----- */
+        .video-background.left video {
+            transform: translate(-30%, -50%); /* Desplaza a la izquierda */
+            object-position: left center;    /* Alinea el contenido a la izquierda */
+        }
+
+        /* También puedes crear una clase RIGHT si la necesitas */
+        .video-background.right video {
+            transform: translate(-70%, -50%); /* Desplaza a la derecha */
+            object-position: right center;    /* Alinea el contenido a la derecha */
         }
 
         /* Capa de oscurecimiento (semi-obfuscado) */
@@ -976,9 +1003,9 @@
             <p class="section-subtitle">Soluciones audiovisuales integrales con tecnología de punta y un equipo creativo apasionado.</p>
             <div class="services-grid">
                 <div class="service-card video-card">
-                    <div class="video-background">
+                    <div class="video-background left">
                         <video autoplay muted loop playsinline preload="metadata">
-                            <source src="videos/loop_film_service.mp4" type="video/mp4">
+                            <source src="videos/loop_1.mp4" type="video/mp4">
                         </video>
                         <div class="overlay"></div>
                     </div>
@@ -988,10 +1015,31 @@
                         <p>Imágenes aéreas de alta resolución para cine, publicidad, eventos deportivos y cobertura periodística.</p>
                     </div>
                 </div>
-                <div class="service-card">
-                    <i class="fas fa-film"></i>
-                    <h3>Producción de Contenido</h3>
-                    <p>Desde la preproducción hasta la postproducción. Contamos historias visuales que conectan con tu audiencia.</p>
+                <div class="service-card video-card">
+                    <div class="video-background">
+                        <video autoplay muted loop playsinline preload="metadata">
+                            <source src="videos/loop_2.mp4" type="video/mp4">
+                        </video>
+                        <div class="overlay"></div>
+                    </div>
+                    <div class="card-content">
+                        <i class="fas fa-video"></i>
+                        <h3>Producción de Contenido</h3>
+                        <p>Desde la preproducción hasta la postproducción. Contamos historias visuales que conectan con tu audiencia.</p>
+                    </div>
+                </div>
+                <div class="service-card video-card">
+                    <div class="video-background">
+                        <video autoplay muted loop playsinline preload="metadata">
+                            <source src="videos/loop_3.mp4" type="video/mp4">
+                        </video>
+                        <div class="overlay"></div>
+                    </div>
+                    <div class="card-content">
+                        <i class="fas fa-video"></i>
+                        <h3>Edición y Postproducción</h3>
+                        <p>Montaje profesional, corrección de color, efectos visuales y sonido envolvente para un resultado impactante.</p>
+                    </div>
                 </div>
                <!-- 
                 <div class="service-card">
@@ -1000,11 +1048,6 @@
                     <p>Levantamientos topográficos, modelado 3D e inspecciones técnicas con precisión milimétrica.</p>
                 </div>
                 -->
-                <div class="service-card">
-                    <i class="fas fa-pen-fancy"></i>
-                    <h3>Edición y Postproducción</h3>
-                    <p>Montaje profesional, corrección de color, efectos visuales y sonido envolvente para un resultado impactante.</p>
-                </div>
             </div>
         </div>
     </section>
