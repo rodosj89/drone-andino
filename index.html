@@ -18,6 +18,15 @@
     gtag('js', new Date());
 
     gtag('config', 'G-TFX0RTS82R');
+
+    document.querySelector('a[href="#contacto"]').addEventListener('click', function() {
+        gtag('event', 'solicitar_presupuesto', {
+            'event_category': 'conversion',
+            'event_label': 'btn_solicitar-presupuesto',
+            'page_location': window.location.href,
+            'page_title': document.title
+        });
+    });
     </script>
 
     <!-- Font Awesome para íconos -->
