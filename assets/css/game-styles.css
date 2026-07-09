@@ -1,0 +1,301 @@
+/* ============================================ */
+/* ESTILOS PARA EL JUEGO "HORA DE VOLAR"        */
+/* Respeta la identidad visual de DroneAndino   */
+/* ============================================ */
+
+/* ----- CONTENEDOR PRINCIPAL ----- */
+.game-section {
+    background: #000000;
+    padding: 70px 20px 50px;
+    position: relative;
+    overflow: hidden;
+    border-top: 3px solid #603319;
+    border-bottom: 3px solid #603319;
+}
+
+/* Fondo con gradiente sutil */
+.game-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(249, 143, 17, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Decoración de estrellas */
+.game-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+.game-stars span {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 50%;
+}
+
+/* ----- TÍTULOS ----- */
+.game-title {
+    text-align: center;
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+}
+
+.game-title .highlight {
+    color: #FDE120;
+    text-shadow: 0 0 40px rgba(253, 225, 32, 0.15);
+}
+
+.game-subtitle {
+    text-align: center;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: #8a9bb5;
+    margin-bottom: 30px;
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
+}
+
+.game-subtitle i {
+    color: #F98F11;
+}
+
+/* ----- CONTENEDOR DEL CANVAS ----- */
+.game-wrapper {
+    max-width: 850px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.game-canvas-container {
+    background: #16120D;
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), inset 0 0 60px rgba(249, 143, 17, 0.03);
+    border: 1px solid #603319;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.game-canvas-container:hover {
+    border-color: #F98F11;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(249, 143, 17, 0.05);
+}
+
+/* ----- CANVAS ----- */
+#gameCanvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #0a0806;
+    aspect-ratio: 800 / 300;
+}
+
+/* ----- CONTROLES (debajo del juego) ----- */
+.game-controls {
+    text-align: center;
+    margin-top: 16px;
+    color: #6a7a95;
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.game-controls .control-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(22, 18, 13, 0.6);
+    padding: 6px 16px;
+    border-radius: 30px;
+    border: 1px solid #603319;
+}
+
+.game-controls .control-item strong {
+    color: #FDE120;
+}
+
+.game-controls .control-item .key {
+    background: #000000;
+    color: #F98F11;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    border: 1px solid #603319;
+    font-weight: 700;
+}
+
+.game-controls .control-item .score-icon {
+    color: #FDE120;
+}
+
+/* ----- ESTADO DEL JUEGO (mensajes) ----- */
+.game-status {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: #888888;
+    position: relative;
+    z-index: 1;
+}
+
+.game-status .ready {
+    color: #FDE120;
+}
+
+.game-status .playing {
+    color: #4FC3F7;
+}
+
+.game-status .gameover {
+    color: #FF5252;
+}
+
+/* ----- BOTÓN PARA REINICIAR (opcional) ----- */
+.game-restart-btn {
+    display: none;
+    background: #F98F11;
+    color: #000000;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 16px auto 0;
+    position: relative;
+    z-index: 1;
+}
+
+.game-restart-btn:hover {
+    background: #FDE120;
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(249, 143, 17, 0.3);
+}
+
+.game-restart-btn.show {
+    display: block;
+}
+
+/* ----- RESPONSIVE ----- */
+@media (max-width: 768px) {
+    .game-section {
+        padding: 50px 16px 40px;
+    }
+
+    .game-canvas-container {
+        padding: 10px;
+        border-radius: 16px;
+    }
+
+    #gameCanvas {
+        border-radius: 10px;
+    }
+
+    .game-controls {
+        gap: 12px;
+        font-size: 0.85rem;
+    }
+
+    .game-controls .control-item {
+        padding: 4px 12px;
+    }
+
+    .game-controls .control-item .key {
+        padding: 1px 8px;
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-section {
+        padding: 40px 12px 30px;
+    }
+
+    .game-canvas-container {
+        padding: 8px;
+        border-radius: 12px;
+    }
+
+    .game-controls {
+        gap: 8px;
+        font-size: 0.75rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .game-controls .control-item {
+        padding: 4px 12px;
+        width: auto;
+    }
+}
+
+/* ----- ANIMACIONES (opcional) ----- */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(249, 143, 17, 0.05);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(249, 143, 17, 0.12);
+    }
+}
+
+.game-canvas-container {
+    animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Efecto de brillo en el borde al pasar el mouse */
+.game-canvas-container::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, transparent 40%, rgba(249, 143, 17, 0.1) 50%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.game-canvas-container:hover::after {
+    opacity: 1;
+}
+
+/* ----- UTILITARIO PARA EL CONTENEDOR ----- */
+.game-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* --- RESPETAR TUS COLORES --- */
+/* Uso tus colores principales:
+   - #F98F11 (naranja principal)
+   - #FDE120 (amarillo/dorado)
+   - #603319 (marrón oscuro)
+   - #16120D (fondo oscuro)
+   - #0a0806 (fondo más oscuro)
+   - #000000 (negro)
+*/
