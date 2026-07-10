@@ -2,8 +2,46 @@
 // JUEGO DEL DRONE - HORA DE VOLAR
 // ============================================
 
+// ============================================
+// VARIABLES GLOBALES
+// ============================================
+let soundSystem = null;
+let retroMusic = null;
+let lastScoreMilestone = 0;
+let lastMotorSpeed = 0;
+
 // ⚠️ IMPORTANTE: Esperar a que el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
+
+    // ============================================
+    // INICIALIZAR SONIDOS Y MÚSICA
+    // ============================================
+    soundSystem = new DroneSoundSystem();
+    soundSystem.init();
+
+    retroMusic = new RetroMusic();
+    retroMusic.init();
+
+    const enableAudio = () => {
+        if (soundSystem && soundSystem.ctx && soundSystem.ctx.state === 'suspended') {
+            soundSystem.resume();
+            soundSystem.playTakeoff(); // 🔊 Sonido de despegue
+        }
+        
+        // 🎵 Iniciar música retro (volumen bajo)
+        if (retroMusic) {
+            retroMusic.resume();
+            retroMusic.start();
+        }
+        
+        document.removeEventListener('click', enableAudio);
+        document.removeEventListener('keydown', enableAudio);
+        document.removeEventListener('touchstart', enableAudio);
+    };
+
+    document.addEventListener('click', enableAudio);
+    document.addEventListener('keydown', enableAudio);
+    document.addEventListener('touchstart', enableAudio);
     
     // === OBTENER EL CANVAS ===
     const canvas = document.getElementById('gameCanvas');
@@ -415,6 +453,21 @@ document.addEventListener('DOMContentLoaded', function() {
         score = 0;
         gameOver = false;
         frame = 0;
+        lastScoreMilestone = 0;
+        lastMotorSpeed = 0;
+        
+        // 🔊 Sonido de reinicio
+        if (soundSystem) {
+            soundSystem.playRestart();
+        }
+        
+        // 🎵 Reiniciar música después de 500ms
+        if (retroMusic) {
+            setTimeout(() => {
+                retroMusic.start();
+            }, 500);
+        }
+        
         console.log('🔄 Juego reiniciado');
     }
 
@@ -436,6 +489,7 @@ document.addEventListener('DOMContentLoaded', function() {
         drone.vy += CONFIG.gravity;
         drone.y += drone.vy;
 
+        // Restricciones de límites
         if (drone.y < 0) {
             drone.y = 0;
             drone.vy = 0;
@@ -445,6 +499,7 @@ document.addEventListener('DOMContentLoaded', function() {
             drone.vy = 0;
         }
 
+        // Generar obstáculos
         if (frame % CONFIG.obstacleInterval === 0) {
             const height = CONFIG.minObstacleHeight +
                 Math.random() * (CONFIG.maxObstacleHeight - CONFIG.minObstacleHeight);
@@ -456,6 +511,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
+        // Mover obstáculos y detectar colisiones
         for (let i = obstacles.length - 1; i >= 0; i--) {
             const obs = obstacles[i];
             obs.x -= CONFIG.speed;
@@ -482,14 +538,45 @@ document.addEventListener('DOMContentLoaded', function() {
                 droneRect.x + droneRect.w > obsRect.x &&
                 droneRect.y < obsRect.y + obsRect.h &&
                 droneRect.y + droneRect.h > obsRect.y) {
+                
                 gameOver = true;
+                
+                // 🔊 SONIDO: CRASH
+                if (soundSystem) {
+                    soundSystem.playCrash();
+                }
+                
+                // 🎵 DETENER MÚSICA
+                if (retroMusic) {
+                    retroMusic.stop();
+                }
+                
                 console.log('💥 Game Over! Puntuación:', Math.floor(score));
                 break;
             }
         }
 
+        // Puntuación e hitos
         if (!gameOver) {
             score += 0.2;
+            
+            const currentScore = Math.floor(score);
+            if (currentScore > 0 && currentScore % 100 === 0 && currentScore !== lastScoreMilestone) {
+                // 🔊 SONIDO: HITO DE PUNTUACIÓN
+                if (soundSystem) {
+                    soundSystem.playScoreMilestone();
+                }
+                
+                // 🎵 EFECTO EN LA MÚSICA (sube volumen momentáneamente)
+                if (retroMusic) {
+                    retroMusic.setVolume(0.15);
+                    setTimeout(() => {
+                        retroMusic.setVolume(0.08);
+                    }, 400);
+                }
+                
+                lastScoreMilestone = currentScore;
+            }
         }
     }
 
