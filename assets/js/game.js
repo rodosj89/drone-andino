@@ -14,6 +14,88 @@ let lastMotorSpeed = 0;
 document.addEventListener('DOMContentLoaded', function() {
 
     // ============================================
+    // 1. SELECCIONAR EL JUEGO Y SU CONTENEDOR
+    // ============================================
+    const gameSection = document.getElementById('game-section'); // El contenedor de la sección
+    const gameCanvas = document.getElementById('game-canvas'); // Tu canvas del juego
+
+    // ============================================
+    // 2. CREAR EL INTERSECTION OBSERVER
+    // ============================================
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // Cuando la sección entra en la pantalla
+            if (entry.isIntersecting) {
+                // REANUDAR / INICIAR EL JUEGO
+                if (typeof juego !== 'undefined' && juego.reanudar) {
+                    juego.reanudar(); // Si tienes un método propio
+                } else {
+                    // Si usas requestAnimationFrame sin pausa, simplemente activamos una bandera
+                    juegoPausado = false;
+                    if (!juegoIniciado) {
+                        iniciarJuego(); // Tu función que arranca el juego
+                        juegoIniciado = true;
+                    }
+                }
+                console.log('🎮 Juego REANUDADO');
+            } else {
+                // Cuando la sección sale de la pantalla
+                // PAUSAR EL JUEGO
+                if (typeof juego !== 'undefined' && juego.pausar) {
+                    juego.pausar();
+                } else {
+                    juegoPausado = true;
+                }
+                console.log('⏸️ Juego PAUSADO');
+            }
+        });
+    }, {
+        // Umbral: 50% de la sección visible para activar
+        threshold: 0.5
+    });
+
+    // ============================================
+    // 3. EMPEZAR A OBSERVAR
+    // ============================================
+    if (gameSection) {
+        observer.observe(gameSection);
+    }
+
+    // ============================================
+    // 4. FUNCIONES DE EJEMPLO PARA TU JUEGO
+    // ============================================
+    let juegoPausado = true;  // Empieza pausado
+    let juegoIniciado = false;
+    let animationId = null;
+
+    function iniciarJuego() {
+        // Tu lógica de inicio del juego
+        console.log('🎮 Juego iniciado');
+        loopJuego(); // Arranca el bucle
+    }
+
+    function loopJuego() {
+        if (!juegoPausado) {
+            // Actualizar lógica del juego
+            actualizarJuego();
+            // Dibujar en el canvas
+            dibujarJuego();
+        }
+        // Continuar el bucle siempre, pero si está pausado no hace nada
+        animationId = requestAnimationFrame(loopJuego);
+    }
+
+    function actualizarJuego() {
+        // Tu lógica de actualización (movimientos, colisiones, etc.)
+    }
+
+    function dibujarJuego() {
+        // Tu código de dibujo en el canvas
+        const ctx = gameCanvas.getContext('2d');
+        // ... dibujar todo ...
+    }
+
+    // ============================================
     // INICIALIZAR SONIDOS Y MÚSICA
     // ============================================
     soundSystem = new DroneSoundSystem();
@@ -44,9 +126,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('touchstart', enableAudio);
     
     // === OBTENER EL CANVAS ===
-    const canvas = document.getElementById('gameCanvas');
+    const canvas = document.getElementById('game-canvas');
     if (!canvas) {
-        console.error('❌ No se encontró el canvas #gameCanvas');
+        console.error('❌ No se encontró el canvas #game-canvas');
         return;
     }
 
@@ -81,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let score = 0;
     let gameOver = false;
     let frame = 0;
-    let animationId = null;
 
     // === FUNCIÓN: DIBUJAR DRONE (4 HÉLICES) ===
     function drawDrone() {

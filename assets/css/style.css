@@ -866,15 +866,8 @@ footer {
         font-size: 18px;
     }
 
-    /* Ocultar video del Hero en móviles */
     .hero-video-fondo {
-        display: none;
-    }
-
-    .hero {
-        background: #000000;
-        min-height: auto;
-        padding: 60px 0 50px;
+        object-position: 100% 50%;
     }
 
     .hero::after {

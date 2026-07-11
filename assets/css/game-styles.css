@@ -99,7 +99,7 @@
 }
 
 /* ----- CANVAS ----- */
-#gameCanvas {
+#game-canvas {
     display: block;
     width: 100%;
     height: auto;
@@ -211,7 +211,7 @@
         border-radius: 16px;
     }
 
-    #gameCanvas {
+    #game-canvas {
         border-radius: 10px;
     }
 

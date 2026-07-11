@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hora de Volar - DroneAndino</title>
+    
+    <link rel="icon" href="logo.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TFX0RTS82R"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/game-styles.css" />
+</head>
+<body>
+
+    <!-- ============================================ -->
+    <!-- HEADER / NAVEGACIÓN (COPIA DE TU INDEX)     -->
+    <!-- ============================================ -->
+    <header>
+        <div class="container header-flex">
+            <!-- Logo -->
+            <div class="logo-area">
+                <a href="#" class="logo-link">
+                    <img src="logo.jpeg" alt="Drone Andino" class="logo-img">
+                </a>
+            </div>
+
+            <!-- Botón hamburguesa (visible en móvil) -->
+            <button class="menu-toggle" id="menuToggle" aria-label="Menú">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Navegación -->
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html">Inicio</a></li>
+                <a href="index.html#servicios">Servicios</a>
+                <a href="index.html#portafolio">Portafolio</a>
+                <a href="game.html">🎮 Jugar</a>
+                <a href="index.html#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ============================================ -->
+    <!-- SECCIÓN: HORA DE VOLAR (TU SECCIÓN ACTUAL)  -->
+    <!-- ============================================ -->
+    <section class="game-section" id="game-section">
+        
+        <!-- Estrellas decorativas -->
+        <div class="game-stars">
+            <span style="top: 10%; left: 10%; width: 2px; height: 2px;"></span>
+            <span style="top: 20%; right: 15%; width: 3px; height: 3px;"></span>
+            <span style="bottom: 30%; left: 20%; width: 2px; height: 2px;"></span>
+            <span style="top: 50%; right: 25%; width: 2px; height: 2px;"></span>
+            <span style="bottom: 10%; right: 10%; width: 3px; height: 3px;"></span>
+            <span style="top: 70%; left: 5%; width: 1px; height: 1px;"></span>
+            <span style="top: 40%; left: 60%; width: 2px; height: 2px;"></span>
+            <span style="top: 80%; left: 40%; width: 1px; height: 1px;"></span>
+        </div>
+
+        <div class="game-container">
+            
+            <!-- Título -->
+            <h2 class="game-title">
+                🚁 <span class="highlight">Hora de Volar</span>
+            </h2>
+            
+            <!-- Subtítulo -->
+            <p class="game-subtitle">
+                <i>Demuestra tu habilidad como piloto</i> · Esquiva los obstáculos y vuela sin límites
+            </p>
+
+            <!-- Contenedor del juego -->
+            <div class="game-wrapper">
+                <div class="game-canvas-container">
+                    <canvas id="game-canvas" width="800" height="300"></canvas>
+                </div>
+            </div>
+
+            <!-- Controles -->
+            <div class="game-controls">
+                <span class="control-item">
+                    🖱️ <strong>Clic</strong> para volar
+                </span>
+                <span class="control-item">
+                    ␣ <span class="key">Espacio</span> para saltar
+                </span>
+                <span class="control-item">
+                    <span class="score-icon">🏆</span> <strong>Puntúa</strong> tu vuelo
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="logo-text">Drone Andino</span>
+                    <p>Filmación aérea y producción de contenido con drones. Calidad y creatividad desde los Andes para el mundo.</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/droneandino?igsh=MXBjbDl4eXp1NTd3OQ==" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/channel/UCT0gL7VE6x8AtdxTVbuy90Q" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="Vimeo"><i class="fab fa-vimeo-v"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Servicios</h4>
+                    <a href="#">Filmación aérea</a>
+                    <a href="#">Producción de video</a>
+                    <a href="#">Fotogrametría</a>
+                    <a href="#">Edición profesional</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Compañía</h4>
+                    <a href="#">Sobre nosotros</a>
+                    <a href="#">Portafolio</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <a href="#"><i class="fas fa-map-marker-alt"></i> San Juan, Argentina</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Drone Andino. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/game-sounds.js"></script> 
+    <script src="assets/js/game.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+
+            if (menuToggle && navLinks) {
+                // Abrir/cerrar menú al hacer clic en el botón
+                menuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('open');
+                    this.classList.toggle('active');
+                    
+                    // Cambiar ícono entre barras y "X"
+                    const icon = this.querySelector('i');
+                    if (navLinks.classList.contains('open')) {
+                        icon.className = 'fas fa-times';
+                    } else {
+                        icon.className = 'fas fa-bars';
+                    }
+                });
+
+                // Cerrar el menú automáticamente al hacer clic en un enlace
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        navLinks.classList.remove('open');
+                        menuToggle.classList.remove('active');
+                        const icon = menuToggle.querySelector('i');
+                        if (icon) {
+                            icon.className = 'fas fa-bars';
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-TFX0RTS82R');
+    </script>
+</body>
+</html>
